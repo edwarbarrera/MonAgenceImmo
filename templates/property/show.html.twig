@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title property.title %}
+
+{% block body %}
+ <div class="jumbotron">
+     <div class="container">
+     <div class="row">
+         <div class="col-md-8">
+     
+ </div>
+      <div class="col-md-4">
+          <h1>{{property.title}}</h1>
+          <h2>{{property.rooms}} pièces, surfce totale: {{property.surface}} m²</h2>
+           <div class="text-primary" style="font-size: 4rem; font-weight: bold;"> {{property.formatedPrice}} €</div>
+           <a href="#" class="btn btn-primary">Contacter MonAgence</a>
+ </div>
+ </div>
+
+ </div>
+ </div>
+<div class="container mt-4">
+ <p>{{property.description | nl2br}}</p>
+
+<div class="row">
+    <div class="col-md-8">
+        <h2>Caracteristiques du bien</h2>
+        <table class="table table-striped">
+            <tr>
+                <td>Surface habitable</td> 
+                <td>{{property.surface}} m²</td>
+            </tr>
+            <tr>
+                <td>Nombre de pieces</td> 
+                <td>{{property.rooms}} pieces</td>
+            </tr>
+            <tr>
+                <td>Nombre de chambres</td> 
+                <td>{{property.bedrooms}} chambres</td>
+            </tr>
+             <tr>
+                <td>Etagess</td> 
+                <td>{{property.floor}} etages</td>
+            </tr>
+            <tr>
+                <td>Chauffage</td> 
+                <td>{{property.heatType}} type de Chauffage</td>
+
+            </tr>
+        </table>  
+    </div>
+
+     <div class=" col-md-4">
+         <h2>Specificités</h2>
+     </div>
+</div>
+
+{% endblock %}
