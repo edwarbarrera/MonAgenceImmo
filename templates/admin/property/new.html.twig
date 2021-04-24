@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+{% block title'Gerer Mon Agence tout Risques' %}
+
+
+{% block body %}
+
+<div class="container mt-4">
+    <h2>editer les biens</h2>
+
+    {{ form_start(form) }}
+    
+    {{ form_widget(form) }}
+    <button class="btn btn-primary" type="submit">creer</button>
+    {{ form_end(form) }}
+
+
+</div>
+
+
+
+{% endblock %}
