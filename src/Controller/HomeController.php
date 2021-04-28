@@ -13,7 +13,7 @@ class HomeController extends AbstractController
 {
    
     /**
-     * @Route("/",name="home")
+     * @Route("/", name="home")
      * @param PropertyRepository $repository
      * @return Response
      */
