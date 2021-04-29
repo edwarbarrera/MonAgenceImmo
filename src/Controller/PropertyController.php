@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Property;
+use App\Entity\PropertySearch;
+use App\Form\PropertySearchType;
 use App\Repository\PropertyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,36 +39,23 @@ class PropertyController extends AbstractController
      */
     public function index(PaginatorInterface $paginator, Request $request): Response
     {
-        // $property =new Property();
-        // $property->setTitle('Villa à la campagne')
-        //     ->setPrice(250000)
-        //     ->setRooms(6)
-        //     ->setDescription('c est loin mais on y est bien')
-        //     ->setSurface(260)
-        //     ->setFloor(0)
-        //     ->setHeat(1)
-        //     ->setCity('santry sur seine')
-        //     ->setBedrooms(2)
-        //     ->setAddress('15 rue du paradis')
-        //     ->setPostalCode('91250')
-        //     ->setIdSeller(3);
-        //   $em=  $this->getDoctrine()->getManager(); cree l objet entity manager
-        //   $em->persist($property); on le fait persister la propriete
-        //   $em->flush(); on envoie en base dedonees
-
-        // $property = $this->repository->findOneby(['floor'=>0]);
-        // $property = $this->repository->findAllVisible();
-        // $property[0]->setSold(false);
-        // dump($property);
-        // $this->em->flush(); met a jour la bdd a chacque changement avec l entity manager
 
 
+        $search = new PropertySearch;
+        $form = $this->createForm(PropertySearchType::class, $search);
+        $form->handleRequest($request);
 
-        $properties=$paginator->paginate($this->repository->findAllVisibleQuery(),
-        $request->query->getInt('page', 1),12);
+        $properties = $paginator->paginate(
+            $this->repository->findAllVisibleQuery($search),
+            $request->query->getInt('page', 1),
+            12
+        );
+
         return $this->render('property/index.html.twig', [
             'current_menu' => 'properties',
-            'properties'=>$properties
+            'properties' => $properties,
+            'form' => $form->createView()
+            
         ]);
     }
 
@@ -85,7 +74,7 @@ class PropertyController extends AbstractController
                 'slug' => $property->getSlug()
             ], 301);
         } {
-             $property=$this->repository->findAllVisible();
+            $property = $this->repository->findAllVisible();
             return $this->render('property/show.html.twig', [
                 'property' => $property,
                 'current_menu' => 'properties'
